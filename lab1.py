@@ -18,8 +18,8 @@ def convolution(image, kernel_matrix, kernel_dimensions):
             output[j,i,2]=green
     return Image.fromarray(output)
 
-
-im=Image.open("images/w.jpg")
+##main driver code
+im=Image.open("w.jpg")
 kernel_matrix1=np.array([[0,0,0],[0,1,0],[0,0,0]])
 kernel_matrix2=np.array([[0.111111,0.111111,0.111111],[0.111111,0.111111,0.111111],[0.111111,0.111111,0.111111]])
 kernel_matrix3=np.array([[0.003,0.013,0.022,0.013,0.003],[0.013,0.059,0.097,0.059,0.013],[0.022,0.097,0.159,0.097,0.022],[0.013,0.059,0.097,0.059,0.013],[0.003,0.013,0.022,0.013,0.003]])
