@@ -1,13 +1,18 @@
 import numpy as np
 from PIL import Image, ImageFilter, ImageDraw
 import sys
+from collections import OrderedDict
+from matplotlib.patches import Circle
+import threading
+from itertools import zip_longest
 import json
 
 
-def thread_method(cluster,):
+
+def thread_method(cc):
     time_check = 0
-    temp_cluster=cluster
-    for key, value in cluster.items():
+    temp_cluster=cc
+    for key, value in cc.items():
         print(time_check)
         time_check += 1
         # if(time_check>limit):
@@ -106,28 +111,47 @@ for key,value in cluster.items():
 img2.save('red.jpg')
 temp_cluster=cluster
 ## now we have all the coordinates of the red points lets cluster them together and find out how many points each has within a circle of radius 35
-# print(cluster)
-time_check=0
-for key,value in cluster.items():
-    print (time_check)
-    time_check+=1
-    for i in range(key[0]-35,key[0]+35):
-        for j in range(key[1]-35,key[1]+35):
-            r,g,b=img2.getpixel((i, j))
-            if(r==139):
-                cluster[(key[0],key[1])]=cluster[(key[0],key[1])]+1## here we are counting how many points lies within a radius of 35 for that particular point
-    cluster[(key[0], key[1])] = cluster[(key[0], key[1])] - 1 ## remove the same element added
-'''
+# time_check=0
+# for key,value in cluster.items():
+#     print(time_check)
+#     time_check+=1
+#     # pointa=np.array((key[0],key[1]))
+#     for key2,value2 in temp_cluster.items():
+#         if(key2[0]-key[0]>35 and key2[1]-key[1]>35):break
+#         # pointb=np.array((key2[0],key2[1]))
+#         # distance=np.linalg.norm(pointa-pointb)
+#         # if(distance<=35):
+#         cluster[(key[0],key[1])]=cluster[(key[0],key[1])]+1## here we are counting how many points lies within a radius of 35 for that particular point
+#     cluster[(key[0], key[1])] = cluster[(key[0], key[1])] - 1 ## remove the same element added
+chunks = [cluster.items()]*2
+g = (dict(filter(None, v)) for v in zip_longest(*chunks))
+g=list(g)
+##t1 = threading.Thread(target=thread_method, args=(g[0],))
+#3t2 = threading.Thread(target=thread_method, args=(g[1],))
+
+# starting thread 1
+##t1.start()
+# starting thread 2
+#t2.start()
+
+# wait until thread 1 is completely executed
+#t1.join()
+# wait until thread 2 is completely executed
+#t2.join()
+
+# cluster_final = sorted(cluster, key=cluster.get, reverse=True)
+#
+# print(cluster_final)
+
+###this part is on;y for visual representation
+#print(cluster)
+#with open('file.txt', 'w') as file:
+ #    file.write(pickle.dumps(exDict))
+
 exDict = {'exDict': cluster}
 
 with open('file.txt', 'w') as file:
      file.write(json.dumps(exDict))
-'''
-
-f = open("dict.txt","w")
-f.write( str(cluster) )
-f.close()
-
 
 draw=ImageDraw.Draw(img2)
 for key,value in cluster.items():
