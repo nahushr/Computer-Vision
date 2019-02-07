@@ -79,7 +79,7 @@ def traces(im, image, i, j):
 
 
 ##driver code
-im=Image.open("a-48.jpg")
+im=Image.open("b-13.jpg")
 # img = im.resize((2200, 1700), Image.ANTIALIAS)
 image=np.array(im)
 cluster={}
@@ -128,7 +128,7 @@ f = open("dict.txt","w")
 f.write( str(cluster) )
 f.close()
 
-threshold=int(len(cluster)/180)
+threshold=int(len(cluster)/480)
 draw=ImageDraw.Draw(img2)
 for key,value in cluster.items():
     if value>threshold:
