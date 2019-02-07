@@ -128,11 +128,11 @@ f = open("dict.txt","w")
 f.write( str(cluster) )
 f.close()
 
-
+threshold=int(len(cluster)/180)
 draw=ImageDraw.Draw(img2)
 for key,value in cluster.items():
-    if value>150:
-        draw.ellipse((key[0]-35,key[1]-35,key[0]+35,key[0]+35), fill='blue', outline='blue')
+    if value>threshold:
+        draw.ellipse((key[0]-12,key[1]-12,key[0]+12,key[1]+12), fill='blue')
 img2.save('circle.jpg')
 
 
