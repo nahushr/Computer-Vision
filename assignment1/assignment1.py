@@ -31,7 +31,7 @@ def traces(im, image, i, j):
     left=0
     right = 0
     for ii in range(i, image.shape[1]):
-        for jj in range(j, j + 60):
+        for jj in range(j, j + 40):
             # (ii,jj)->staring point
             ##solve this by adding padding to image of whites
             try:
@@ -42,7 +42,7 @@ def traces(im, image, i, j):
         break;
 
     for ii in range(i, image.shape[1]):
-        for jj in range(j-60, j):
+        for jj in range(j-40, j):
             # (ii,jj)->staring point
             ##solve this by adding padding to image of whites
             try:
@@ -53,7 +53,7 @@ def traces(im, image, i, j):
         break;
 
     for jj in range(j, image.shape[0]):
-        for ii in range(i, i + 60):
+        for ii in range(i, i + 40):
             try:
                 if (im.getpixel((ii, jj)) < 120):
                     right = right + 1
@@ -62,7 +62,7 @@ def traces(im, image, i, j):
         break;
 
     for jj in range(j, image.shape[0]):
-        for ii in range(i-60, i):
+        for ii in range(i-40, i):
             try:
                 if (im.getpixel((ii, jj)) < 120):
                     left = left + 1
@@ -72,7 +72,7 @@ def traces(im, image, i, j):
 
     # print(down,right)
 
-    if (down > 10 and right > 10 and up>10 and left >10):
+    if (down > 8 and right > 8 and up>8 and left >8):
         return True
     else:
         return False
@@ -111,8 +111,8 @@ time_check=0
 for key,value in cluster.items():
     print (time_check)
     time_check+=1
-    for i in range(key[0]-35,key[0]+35):
-        for j in range(key[1]-35,key[1]+35):
+    for i in range(key[0]-12,key[0]+12):
+        for j in range(key[1]-12,key[1]+12):
             r,g,b=img2.getpixel((i, j))
             if(r==139):
                 cluster[(key[0],key[1])]=cluster[(key[0],key[1])]+1## here we are counting how many points lies within a radius of 35 for that particular point
