@@ -135,4 +135,65 @@ for key,value in cluster.items():
         draw.ellipse((key[0]-12,key[1]-12,key[0]+12,key[1]+12), fill='blue')
 img2.save('circle.jpg')
 
+column={}
+row={}
+for i in range(np.array(img2).shape[0]):
+    for j in range(np.array(img2).shape[1]):
+        r,g,b=img2.getpixel((j, i))
+        if (r==0 and g==0 and b==255):
+            # print("hello")
+            if i in row:
+                row[i]+=1
+            else:
+                row[i]=0
+
+for i in range(np.array(img2).shape[1]):
+    for j in range(np.array(img2).shape[0]):
+        r,g,b=img2.getpixel((i, j))
+        if (r==0 and g==0 and b==255 and j>400):
+            # print("hello")
+            if i in column:
+                column[i]+=1
+            else:
+                column[i]=0
+print("Total blue column dictionary: ",column)
+print("Total blue column dictionary length: ",len(column))
+print("Total blue row dictionary: ",row)
+print("Total blue row dictionary length: ",len(row))
+
+y_list=[]
+x_list=[]
+#for columns
+previous=0
+for key, value in column.items():
+    draw=ImageDraw.Draw(img2)
+    if(int(key)-int(previous)>45 and value>200):
+        draw.line((key,0,key,np.array(img2).shape[0]), fill=128)
+        previous=key
+        y_list.append(key)
+
+keys=list(row.keys())
+
+for i in range(len(keys)):
+    if int(keys[i])>500:
+        start=int(keys[i])
+        break
+
+threshold=(int(keys[len(keys)-1])-int(start))/29
+
+#for rows
+previous=0
+for key, value in row.items():
+    draw=ImageDraw.Draw(img2)
+    if(int(key)-int(previous)>int(threshold) and value>50 and key>500):
+        draw.line((0,key,np.array(img2).shape[1],key), fill=128)
+        previous=key
+        x_list.append(key)
+        
+print(len(y_list))
+print(len(x_list))
+img2.save('grid.jpg')
+
+
+sys.exit(1)
 
