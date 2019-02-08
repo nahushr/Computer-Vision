@@ -79,7 +79,7 @@ def traces(im, image, i, j):
 
 
 ##driver code
-im=Image.open("b-13.jpg")
+im=Image.open("c-18.jpg")
 # img = im.resize((2200, 1700), Image.ANTIALIAS)
 image=np.array(im)
 cluster={}
