@@ -59,15 +59,20 @@ def traces(im, image, i, j):
 
 def func(my_list,position,i,j):
     if(position=='r'):
-        my_list.insert(i+1,my_list[i]+45)
+        my_list.insert(i+1,my_list[i]+55)
     if(position=='l'):
         my_list.insert(j,my_list[j]-60)
     return my_list
     
 
 ##driver code
+
+if len(sys.argv) < 4:
+        print("Usage: \n./grade.py form.jpg output.jpg output.txt")
+        sys.exit()
+
 print("Processing the image and plotting the red pixels..........")
-im=Image.open("c-18.jpg")
+im=Image.open(sys.argv[1])
 # img = im.resize((2200, 1700), Image.ANTIALIAS)
 image=np.array(im)
 cluster={}
@@ -209,7 +214,7 @@ for key, value in row.items():
 print("Intersection y list: ",len(y_list))
 print("Intersection x list: ",len(x_list))
 
-img2.save('grid.jpg')
+img2.save(sys.argv[2])
 print("Calculating the answers from the grid system.........")
 answer_list={}
 for i in range(1,88):
@@ -218,13 +223,13 @@ for i in range(1,88):
 for i in range(len(x_list)):
     for j in range(len(y_list)):
         counter=0
-        for x in range(x_list[i],x_list[i]+30):
-            for y in range(y_list[j],y_list[j]+30):
+        for x in range(x_list[i],x_list[i]+10):
+            for y in range(y_list[j],y_list[j]+10):
                 r,g,b=img2.getpixel((y,x))
                 if(r==0 and g==0 and b==255):
                     ## get the blue pixel if there are more than 20 pixels then its the answer
                     counter+=1
-                    if(counter>=20):
+                    if(counter>=15):
                         if(j>=0 and j<=4):
                             key=str(i+1)
                             if(j==0):answer_list[key].append('A')
@@ -265,6 +270,16 @@ for key,value in answer_list.items():
 
 print("Final answer dictionary.........")
 print(answer_list) 
+
+file=open(sys.argv[3],"w+")
+
+for key,value in answer_list.items():
+	answer=''
+	for i in range(len(value)):
+		answer=value[i]+' '
+	answer.rstrip()
+	file.write(key+" "+answer+"/n")
+
 
 sys.exit(1)
 
