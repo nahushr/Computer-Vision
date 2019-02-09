@@ -3,27 +3,6 @@ from PIL import Image, ImageFilter, ImageDraw
 import sys
 import json
 
-
-def thread_method(cluster,):
-    time_check = 0
-    temp_cluster=cluster
-    for key, value in cluster.items():
-        print(time_check)
-        time_check += 1
-        # if(time_check>limit):
-        #     break;
-        pointa=np.array((key[0],key[1]))
-        for key2, value2 in temp_cluster.items():
-            # if (key2[0] - key[0] > 35 and key2[1] - key[1] > 35): break
-            pointb=np.array((key2[0],key2[1]))
-            distance=np.linalg.norm(pointa-pointb)
-            if(distance<=35):
-                cluster[(key[0], key[1])] = cluster[(key[0], key[1])] + 1  ## here we are counting how many points lies within a radius of 35 for that particular point
-        cluster[(key[0], key[1])] = cluster[(key[0], key[1])] - 1  ## remove the same element added
-
-
-
-
 def traces(im, image, i, j):
     ##go up
     up=0
@@ -79,6 +58,7 @@ def traces(im, image, i, j):
 
 
 ##driver code
+print("Processing the image and plotting the red pixels..........")
 im=Image.open("c-18.jpg")
 # img = im.resize((2200, 1700), Image.ANTIALIAS)
 image=np.array(im)
@@ -89,8 +69,7 @@ for i in range(image.shape[1]):
             if(traces(im,image,i,j)==True):
                 cluster[(i,j)]=0
 
-print("Total No. of coordinates: ", len(cluster))
-
+print("Total No. of red coordinates: ", len(cluster))
 img2=Image.new('RGB', (image.shape[1],image.shape[0]), color='white')
 image2=np.array(img2)
 
@@ -104,13 +83,14 @@ for key,value in cluster.items():
     img2.putpixel((key[0],key[1]),(139,0,0))## putting red pixels
 
 img2.save('red.jpg')
+print("Clustering the red points to construct blue circles..........")
 temp_cluster=cluster
 ## now we have all the coordinates of the red points lets cluster them together and find out how many points each has within a circle of radius 35
 # print(cluster)
-time_check=0
+#time_check=0
 for key,value in cluster.items():
-    print (time_check)
-    time_check+=1
+    #print (time_check)
+    #time_check+=1
     for i in range(key[0]-12,key[0]+12):
         for j in range(key[1]-12,key[1]+12):
             r,g,b=img2.getpixel((i, j))
@@ -134,6 +114,7 @@ for key,value in cluster.items():
     if value>threshold:
         draw.ellipse((key[0]-12,key[1]-12,key[0]+12,key[1]+12), fill='blue')
 img2.save('circle.jpg')
+print("Creating a grid system......")
 
 column={}
 row={}
@@ -156,9 +137,9 @@ for i in range(np.array(img2).shape[1]):
                 column[i]+=1
             else:
                 column[i]=0
-print("Total blue column dictionary: ",column)
+#print("Total blue column dictionary: ",column)
 print("Total blue column dictionary length: ",len(column))
-print("Total blue row dictionary: ",row)
+#print("Total blue row dictionary: ",row)
 print("Total blue row dictionary length: ",len(row))
 
 y_list=[]
@@ -190,10 +171,65 @@ for key, value in row.items():
         previous=key
         x_list.append(key)
         
-print(len(y_list))
-print(len(x_list))
-img2.save('grid.jpg')
+print("Intersection y list: ",len(y_list))
+print("Intersection x list: ",len(x_list))
 
+img2.save('grid.jpg')
+print("Calculating the answers from the grid system.........")
+answer_list={}
+for i in range(1,88):
+    answer_list[str(i)]=[]
+
+for i in range(len(x_list)):
+    for j in range(len(y_list)):
+        counter=0
+        for x in range(x_list[i],x_list[i]+30):
+            for y in range(y_list[j],y_list[j]+30):
+                r,g,b=img2.getpixel((y,x))
+                if(r==0 and g==0 and b==255):
+                    ## get the blue pixel if there are more than 20 pixels then its the answer
+                    counter+=1
+                    if(counter>=20):
+                        if(j>=0 and j<=4):
+                            key=str(i+1)
+                            if(j==0):answer_list[key].append('A')
+                            elif(j==1):answer_list[key].append('B')
+                            elif(j==2):answer_list[key].append('C')
+                            elif(j==3):answer_list[key].append('D')
+                            elif(j==4):answer_list[key].append('E')
+
+                        elif(j>=5 and j<=9):
+                            key=(str(i+1+29))
+                            if (j == 5):
+                                answer_list[key].append('A')
+                            elif (j == 6):
+                                answer_list[key].append('B')
+                            elif (j == 7):
+                                answer_list[key].append('C')
+                            elif (j == 8):
+                                answer_list[key].append('D')
+                            elif (j == 9):
+                                answer_list[key].append('E')
+                        elif(j>=10 and j<=14):
+                            key=(str(i+1+29+29))
+                            answer_list[key]
+                            if (j == 10):
+                                answer_list[key].append('A')
+                            elif (j == 11):
+                                answer_list[key].append('B')
+                            elif (j == 12):
+                                answer_list[key].append('C')
+                            elif (j == 13):
+                                answer_list[key].append('D')
+                            elif (j == 14):
+                                answer_list[key].append('E')
+
+for key,value in answer_list.items():
+    mylist=list(dict.fromkeys(value))
+    answer_list[key]=mylist
+
+print("Final answer dictionary.........")
+print(answer_list) 
 
 sys.exit(1)
 
