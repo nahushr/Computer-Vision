@@ -52,7 +52,7 @@ def traces(im, image, i, j):
 
     # print(down,right)
 
-    if (down > 8 and right > 8 and up>8 and left >8):
+    if (down >12 and right >12 and up>12 and left >12):
         return True
     else:
         return False
@@ -161,11 +161,12 @@ x_list=[]
 previous=0
 for key, value in column.items():
     draw=ImageDraw.Draw(img2)
-    if(int(key)-int(previous)>45 and value>200):
-        #draw.line((key,0,key,np.array(img2).shape[0]), fill=128)
+    if(int(key)-int(previous)>60 and value>200):
+        draw.line((key,0,key,np.array(img2).shape[0]), fill=128)
         previous=key
         y_list.append(key)
-
+print(y_list)
+'''
 my_list=y_list
 while(len(my_list)<15):
     
@@ -186,10 +187,13 @@ while(len(my_list)<15):
     my_list=func(my_list,'r',len(my_list)-1,0)
 y_list=my_list
 
+print(y_list)
+
+
 for i in range(len(y_list)):
     draw=ImageDraw.Draw(img2)
     draw.line((y_list[i],0,y_list[i],np.array(img2).shape[0]), fill=128)
-
+'''
 
 
 
@@ -236,7 +240,7 @@ for i in range(len(x_list)):
                             elif(j==1):answer_list[key].append('B')
                             elif(j==2):answer_list[key].append('C')
                             elif(j==3):answer_list[key].append('D')
-                            elif(j==4):answer_list[key].append('E')
+                           # elif(j==4):answer_list[key].append('E')
 
                         elif(j>=5 and j<=9):
                             key=(str(i+1+29))
