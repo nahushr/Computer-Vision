@@ -57,6 +57,13 @@ def traces(im, image, i, j):
     else:
         return False
 
+def func(my_list,position,i,j):
+    if(position=='r'):
+        my_list.insert(i+1,my_list[i]+45)
+    if(position=='l'):
+        my_list.insert(j,my_list[j]-60)
+    return my_list
+    
 
 ##driver code
 print("Processing the image and plotting the red pixels..........")
@@ -150,9 +157,36 @@ previous=0
 for key, value in column.items():
     draw=ImageDraw.Draw(img2)
     if(int(key)-int(previous)>45 and value>200):
-        draw.line((key,0,key,np.array(img2).shape[0]), fill=128)
+        #draw.line((key,0,key,np.array(img2).shape[0]), fill=128)
         previous=key
         y_list.append(key)
+
+my_list=y_list
+while(len(my_list)<15):
+    
+    for i in range(len(my_list)-1):
+        j=i+1
+        diff=my_list[j]-my_list[i]
+        if(diff>100 and (i+1)%5!=0):
+            # print('here',i)
+            my_list=func(my_list,'r',i,j)
+            break
+        if(diff>220 and (i+1)%5==0):
+            # print('hereee',i)
+            my_list=func(my_list,'l',i,j)
+            break
+    # print(len(my_list))
+    if(len(my_list)>=15):
+        break
+    my_list=func(my_list,'r',len(my_list)-1,0)
+y_list=my_list
+
+for i in range(len(y_list)):
+    draw=ImageDraw.Draw(img2)
+    draw.line((y_list[i],0,y_list[i],np.array(img2).shape[0]), fill=128)
+
+
+
 
 keys=list(row.keys())
 
