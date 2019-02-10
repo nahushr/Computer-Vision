@@ -52,7 +52,7 @@ def traces(im, image, i, j):
 
     # print(down,right)
 
-    if (down >12 and right >12 and up>12 and left >12):
+    if (down >8 and right >8 and up>8 and left >8):
         return True
     else:
         return False
@@ -161,12 +161,12 @@ x_list=[]
 previous=0
 for key, value in column.items():
     draw=ImageDraw.Draw(img2)
-    if(int(key)-int(previous)>60 and value>200):
+    if(int(key)-int(previous)>68 and value>30):
         draw.line((key,0,key,np.array(img2).shape[0]), fill=128)
         previous=key
         y_list.append(key)
 print(y_list)
-'''
+
 my_list=y_list
 while(len(my_list)<15):
     
@@ -193,7 +193,7 @@ print(y_list)
 for i in range(len(y_list)):
     draw=ImageDraw.Draw(img2)
     draw.line((y_list[i],0,y_list[i],np.array(img2).shape[0]), fill=128)
-'''
+
 
 
 
@@ -227,20 +227,20 @@ for i in range(1,88):
 for i in range(len(x_list)):
     for j in range(len(y_list)):
         counter=0
-        for x in range(x_list[i],x_list[i]+10):
-            for y in range(y_list[j],y_list[j]+10):
+        for x in range(x_list[i],x_list[i]+9):
+            for y in range(y_list[j],y_list[j]+9):
                 r,g,b=img2.getpixel((y,x))
                 if(r==0 and g==0 and b==255):
                     ## get the blue pixel if there are more than 20 pixels then its the answer
                     counter+=1
-                    if(counter>=15):
+                    if(counter>=10):
                         if(j>=0 and j<=4):
                             key=str(i+1)
                             if(j==0):answer_list[key].append('A')
                             elif(j==1):answer_list[key].append('B')
                             elif(j==2):answer_list[key].append('C')
                             elif(j==3):answer_list[key].append('D')
-                           # elif(j==4):answer_list[key].append('E')
+                            elif(j==4):answer_list[key].append('E')
 
                         elif(j>=5 and j<=9):
                             key=(str(i+1+29))
