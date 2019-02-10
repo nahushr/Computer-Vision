@@ -1,1 +1,85 @@
-1 D /n2 A /n3 B /n4 B /n5 C /n6 D /n7 B /n8 A /n9 C /n10 C /n11 A /n12 D /n13 C /n14 C /n15 D /n16 A /n17 A /n18 D /n19 C /n20 C /n21 D /n22 D /n23 C /n24 B /n25 A /n26 D /n27 A /n28 B /n29 C /n30 C /n31 A /n32 A /n33 D /n34 C /n35 D /n36 D /n37 D /n38 A /n39 A /n40 B /n41 C /n42 D /n43 E /n44 B /n45 D /n46 D /n47 E /n48 E /n49 C /n50 E /n51 D /n52 D /n53 A /n54 B /n55 E /n56 B /n57 E /n58 B /n59 /n60 D /n61 B /n62 C /n63 A /n64 D /n65 /n66 E /n67 D /n68 B /n69 C /n70 E /n71 A /n72 B /n73 B /n74 D /n75 C /n76 /n77 A /n78 A /n79 C /n80 C /n81 E /n82 E /n83 E /n84 D /n85 A /n86 /n87 /n
+1 B
+2 C
+3 B
+4 C
+5 C
+6 C
+7 
+8 
+9 A
+10 A
+11 C
+12 
+13 
+14 C
+15 B
+16 A
+17 C
+18 C
+19 D
+20 A
+21 C
+22 D
+23 D
+24 B
+25 B
+26 B
+27 B
+28 C
+29 B
+30 
+31 C
+32 B
+33 
+34 C
+35 C
+36 B
+37 A
+38 B
+39 A
+40 C
+41 CE
+42 BD
+43 E
+44 AC
+45 C
+46 CE
+47 D
+48 CD
+49 CE
+50 CD
+51 AB
+52 BC
+53 A
+54 AD
+55 BE
+56 A
+57 C
+58 D
+59 AC
+60 AD
+61 B
+62 BD
+63 AB
+64 C
+65 E
+66 E
+67 C
+68 A
+69 D
+70 BE
+71 A
+72 AB
+73 B
+74 A
+75 C
+76 BD
+77 A
+78 E
+79 C
+80 D
+81 E
+82 E
+83 E
+84 D
+85 A
