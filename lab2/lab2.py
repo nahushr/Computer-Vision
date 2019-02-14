@@ -66,6 +66,8 @@ low_pass_image_result=abs(fftpack.ifft2(fftpack.ifftshift(fft2_image2)))
 
 ##step4->
 #pixel wise summation
+high_pass_image_result=abs(fftpack.ifft2(fftpack.ifftshift(fft2_image1)))
+low_pass_image_result=abs(fftpack.ifft2(fftpack.ifftshift(fft2_image2)))
 new_image=np.add(np.array(high_pass_image_result),np.array(low_pass_image_result))
 output=Image.fromarray(new_image)
 if output.mode != 'RGB':
