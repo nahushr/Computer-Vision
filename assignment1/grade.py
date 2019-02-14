@@ -111,7 +111,7 @@ y_list,x_list = [],[]
 previous = 0
 for key, value in column.items():
     draw = ImageDraw.Draw(img2)
-    if (int(key) - int(previous) > 68 and value > 30):
+    if (int(key) - int(previous) > 60 and value > 30):
         draw.line((key, 0, key, np.array(img2).shape[0]), fill=128)
         previous = key
         y_list.append(key)
