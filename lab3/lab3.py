@@ -14,8 +14,8 @@ def normalize(input_im):
     return np . uint8 ( output )
 
 ##open image and convert to greyscale
-image=Image.open("images/chess1.JPG")
-temp=Image.open("images/chess1.JPG")
+image=Image.open("chess1.jpg")
+temp=Image.open("chess1.jpg")
 draw=ImageDraw.Draw(temp)
 image=ImageOps.grayscale(image)
 
@@ -47,15 +47,15 @@ for x in range(np.array(image).shape[1]):
             draw.line(((x-5,y),(x+5,y)), fill=(255,0,0))
             draw.line(((x,y-5),(x,y+5)), fill=(255,0,0))
 
-temp.save("output/Final_output.jpg")
+temp.save("Final_output.jpg")
 out=Image.fromarray(normalize(Ix))
-out.save("output/Ix2.jpg")
+out.save("Ix2.jpg")
 out=Image.fromarray(normalize(Iy))
-out.save("output/Iy2.jpg")
+out.save("Iy2.jpg")
 out=Image.fromarray(Aw)
-out.save("output/Aw.jpg")
+out.save("Aw.jpg")
 out=Image.fromarray(Bw)
-out.save("output/Bw.jpg")
+out.save("Bw.jpg")
 out=Image.fromarray(Cw)
-out.save("output/Cw.jpg")
+out.save("Cw.jpg")
 
