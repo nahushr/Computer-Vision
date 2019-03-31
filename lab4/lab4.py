@@ -12,7 +12,6 @@ def animate_above(frame_number):
     if(frame_number>=20):
         tz-=15
 
-        # tx -= 5
     f = 0.002  ## camera aperture
     alpha = math.pi / 2  ##tilt angle
     beta = math.pi  ##twist angle
@@ -51,18 +50,14 @@ def animate_above(frame_number):
 
     mat2 = np.matmul(np.matmul(A, B), np.matmul(np.matmul(C, D), E))
 
-    # tz+=0.000020
     pr,pc=[],[]
     for p in pts3:
         temp3=[[p[0]],[p[1]],[p[2]],[1]]
         temp = np.matmul(mat2,temp3)
         if(temp[2][0]>0):
             xx, yy = temp[0][0] / temp[2][0], temp[1][0] / temp[2][0]
-            # print(xx,yy)
             pr+=[-xx]
             pc+=[yy]
-
-    # print(pr)
     plt.cla()
     plt.gca().set_xlim([-0.002,0.002])
     plt.gca().set_ylim([-0.002,0.002])
@@ -70,19 +65,11 @@ def animate_above(frame_number):
     return line,
 
 
-tx,ty,tz=0,0,-10
+tx,ty,tz=0,0,-5
 xx,yy=1,1
 
 with open ("airport.pts", "r") as file:
     pts3=[ [float(x) for x in l.split(" ")] for l in file.readlines()]
-# pts2=[]
-# for i in range(len(pts3)):
-#     temp=np.matmul(mat2,np.array([[float(pts3[i][0])],[float(pts3[i][1])],[float(pts3[i][2])],[1.0000]]))
-#     x,y=temp[0][0]/temp[2][0],temp[1][0]/temp[2][0]
-#     pts2.append((x,y))
-# print(pts2)
-# (tx,ty,tz)=(0,0,5)
-# (compass,tilt,twist)=(0,math.pi/2,0)
 
 fig,ax=plt.subplots()
 frame_count=50
