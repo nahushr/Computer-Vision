@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # naive_stereo.py
 # This program performs block-based matching to create a depth map
 # given 2 stereo images.
@@ -95,6 +96,10 @@ def convolution(imR,image, weak_filter, medium_filter, strong_filter):
             image_padded = imR
     return Image.fromarray(imR)
 
+imL = Image.open("im0.png")
+imR = Image.open("im1.png")
+imL = ImageOps.grayscale(imL)
+imR = ImageOps.grayscale(imR)
 image=Image.open("depth.png")
 image=ImageOps.grayscale(image)
 image=np.array(image)
@@ -105,5 +110,6 @@ strong_filter=(1/169)*np.ones((13,13))
 
 convolution(np.array(imR),image,weak_filter,medium_filter,strong_filter).save("koech_effect_r.jpg")
 convolution(np.array(imL),image,weak_filter,medium_filter,strong_filter).save("koech_effect_l.jpg")
+
 
 
