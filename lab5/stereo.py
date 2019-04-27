@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # naive_stereo.py
 # This program performs block-based matching to create a depth map
 # given 2 stereo images.
@@ -78,29 +77,33 @@ disparity_matrix = normalize(E(disparity_matrix))
 # save depth map as image (so that you can reuse it later!!!)
 imDepth_image = Image.fromarray(disparity_matrix)
 imDepth_image = imDepth_image.convert('RGB')
+imDepth_image.save("depth.png")
 
-def convolution(imR,imL,image, weak_filter, medium_filter, strong_filter):
+def convolution(imR,image, weak_filter, medium_filter, strong_filter):
+    image_padded=imR
     for i in range(image.shape[1]):
         for j in range(image.shape[0]):
             if(image[j][i]>=101 and image[j][i]<=150):
-                try:imR[j][i]=(weak_filter * imR[j:j + len(weak_filter), i:i + len(weak_filter)]).sum()
+                try:imR[j][i]=(weak_filter * image_padded[j:j + len(weak_filter), i:i + len(weak_filter)]).sum()
                 except:pass
             elif(image[j][i]>=51 and image[j][i]<=100):
-                try:imR[j][i]=(medium_filter * imR[j:j + len(medium_filter), i:i + len(medium_filter)]).sum()
+                try:imR[j][i]=(medium_filter * image_padded[j:j + len(medium_filter), i:i + len(medium_filter)]).sum()
                 except:pass
             elif(image[j][i]>=0 and image[j][i]<=50):
-                try:imR[j][i]=(strong_filter * imR[j:j + len(strong_filter), i:i + len(strong_filter)]).sum()
+                try:imR[j][i]=(strong_filter * image_padded[j:j + len(strong_filter), i:i + len(strong_filter)]).sum()
                 except:pass
+            image_padded = imR
     return Image.fromarray(imR)
 
-weak_filter,medium_filter,strong_filter=(1/9)*np.ones((3,3)),(1/49)*np.ones((7,7)),(1/169)*np.ones((13,13))
-original_image1=np.array(Image.open("im0.png"))
-original_image2=np.array(Image.open("im1.png"))
 image=Image.open("depth.png")
 image=ImageOps.grayscale(image)
 image=np.array(image)
-convolution(np.array(imR),np.array(imL),image,weak_filter,medium_filter,strong_filter).save("koech_effect_r.jpg")
-convolution(np.array(imL),np.array(imL),image,weak_filter,medium_filter,strong_filter).save("koech_effect_l.jpg")
+weak_filter=(1/9)*np.ones((3,3))
+medium_filter=(1/49)*np.ones((7,7))
+strong_filter=(1/169)*np.ones((13,13))
 
+
+convolution(np.array(imR),image,weak_filter,medium_filter,strong_filter).save("koech_effect_r.jpg")
+convolution(np.array(imL),image,weak_filter,medium_filter,strong_filter).save("koech_effect_l.jpg")
 
 
