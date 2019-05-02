@@ -1,0 +1,7 @@
+We investigate three computer vision techniques for converting scenes from day-time to night-time.   
+The first approach automates a Photoshop method to automatically adjust the brightness, contrast, and the image curve layer of the daytime image, followed by noise addition and sky scene modification to produce the final night-time image.   
+The other two approaches utilize existing Deep Learning models (Cycle-GAN and Conditional Adversarial Networks) to map input images to output images.  
+Both models follow the principles of the Generative Adversarial Network architecture with augmented loss functions to solve daytime-image-to-nighttime-image problems.  
+ We evaluate and compare the performance of the three techniques visually in a perceptive manner.  
+Our experiments show that although the Photoshop technique generates good customized images, the Deep Learning approaches produce better results on generalized images that span similar context to that of the training dataset. 
+  Furthermore, we observe that Cycle-GAN is slower in terms of training process but generalizes better to unpaired data, while Conditional Adversarial Network performs better with paired image instances.
